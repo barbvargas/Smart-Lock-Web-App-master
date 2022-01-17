@@ -1,0 +1,186 @@
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <div class="g-signin2"></div>
+    <link href="../css.styles.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id" content="272016247378-ro1nqj9jb67a7v4kqumdpoobvse8jbnf.apps.googleusercontent.com">
+    <title>Smart Lock Dashboard</title>
+    <!-- Bootstrap core CSS-->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+  </head>
+
+
+  <body class="fixed-nav sticky-footer bg-dark" id="page-top"  onload="loadDashboard(); getLockStatus(); getTime(); getMembers(); loadLocks(); switchLock(); showHistory(); loadSettings(); switchSettings();">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="dashboard">Smart Lock</a>
+      <font color="white"><span id="time"></span></font>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
+          <!-- Register lock -->
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Register Lock">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+              <a class="nav-link" data-toggle="tooltip" href="registerLock">
+                <i class="fa fa-lock"></i>
+                <span class="nav-link-text">Register Lock</span>
+              </a>
+            </li>
+          </li>
+
+          <!-- dashboard dropdown bottom -->
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#dashboardComponents" data-parent="#exampleAccordian">
+                <i class = "fa fa-fw fa-dashboard"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+              <ul class="sidenav-second-level collapse" id="dashboardComponents">
+              </ul>
+            </li>
+          </li>
+
+          <!-- Settings dropdown bottom -->
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingsComponents" data-parent="#exampleAccordion">
+                <i class="fa fa-fw fa-wrench"></i>
+                <span class="nav-link-text">Settings</span>
+              </a>
+              <ul class="sidenav-second-level collapse" id="settingsComponents">
+              </ul>
+            </li>
+          </li>
+        </ul>
+
+        <!-- header -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+              <i class="fa fa-fw fa-sign-out"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- name of dashboard and lock name -->
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/dashboard">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">
+            <span class="username"> </span>
+          </li>
+          <li class="breadcrumb-item active">
+            <span class="lockname"> </span>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-12">
+            <h1> <span class="header"> </span> </h1>
+          </div>
+        </div>
+        <h1 class="error-message"></h1>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card mb-3 lock-control" onclick="changeLock()" >
+              <div class="card-header">
+                <i class="fa fa-lock"></i> Click to <span id="lock-action"></span>
+              </div>
+              <div class="card-body">
+                <img src="../imgs/lock.png" style="width:170px;height:170px;">
+              </div>
+              <div class="card-footer small text-muted">Your lock is currently <span id="lock-status"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header" style="text-align:center;">Members</h5>
+            <div class="card-body">
+              <div align="center">
+                <ul id="membersList">
+                </ul>
+              </div>
+            </div>
+          </div>
+        <div class="card">
+          <h5 class="card-header" style="text-align:center;">Lock History</h5>
+          <div class="card-body">
+            <div align="center">
+              <ul id="historyList">
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Your Website 2017</small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="/" onclick="signOut();">Logout</a>
+            <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script>
+    request();
+
+  </script>
+</body>
+
+</html>

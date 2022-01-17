@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<style>
+button{
+ display:block;
+ margin: 0 auto;
+
+}
+input{
+ display:block;
+ margin:0 auto;
+}
+</style>
+<html>
+<title> Smart Lock - Registration </title>
+<head> 
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+  integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+  crossorigin="anonymous">
+</head>
+
+
+<body onload="getName()">
+  <h1 align="center"> Register Your Smart Lock </h1>
+  <h2 align="center" class="lockTaken"></h2>
+  <div id="form" align="center">
+
+    <div class="form-group col-md-4" >
+      <label for="exampleInputEmail1">Lock Name</label>
+      <input type="text" class="form-control" placeholder="Lock Name" id="lock-name">
+    </div>
+<!--     <div class="form-group col-md-4" >
+      <label for="exampleInputEmail1">Email</label>
+      <input type="text" class="form-control" placeholder="Email" id="email">
+    </div> -->
+    <div class="form-group col-md-4" >
+      <label for="exampleInputEmail1">ID</label>
+      <input type="text" class="form-control" placeholder="Lock ID" id="id">
+    </div>
+    <button onclick="registerLock()">Submit</button>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="js/scripts.js"></script>
+</body>
+
+
+</html>
